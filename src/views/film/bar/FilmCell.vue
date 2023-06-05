@@ -1,0 +1,115 @@
+<template>
+  <van-cell>
+    <van-image :src="props.film.poster" />
+    <div class="film-info">
+      <van-text-ellipsis :content="props.film.name" class="film-name" />
+      <div class="film-grade" v-if="film.grade">
+        <span class="grade-label">观众评分：</span>
+        <span class="grade">{{ props.film.grade }}</span>
+      </div>
+      <van-text-ellipsis :content="`主演：${actors}`" />
+      <div class="film-nation-runtime">{{ props.film.nation }} | {{ props.film.runtime }}分钟</div>
+    </div>
+    <div class="film-buy-tickets">
+      <van-button type="primary" @click.stop="toBuyTickets"
+        :style="canBuyNow ? { background: '#F03D37' } : { background: '#ffb232' }">
+        {{ canBuyNow ? '购票' : '预购' }}
+      </van-button>
+    </div>
+  </van-cell>
+</template>
+<script setup lang="ts">
+import type { PropType } from 'vue'
+import type { FilmItem } from '@/types/film'
+import { computed } from 'vue';
+const props = defineProps({
+  film: {
+    type: Object as PropType<FilmItem>,
+    required: true
+  },
+  filmType: {
+    type: String,
+    default: '1'
+  }
+})
+
+const canBuyNow = computed(() => props.filmType === '1')
+const actors = computed(() => {
+  if (!props.film.actors) return '暂无主演'
+  return props.film.actors.map(actor => actor.name).join(' ')
+})
+
+
+const toBuyTickets = () => {
+  console.log('toBuyTickets')
+}
+</script>
+
+<style lang="scss" scoped>
+:deep(.van-cell__value) {
+  display: flex;
+}
+
+:deep(.van-image__img) {
+  width: 4.125rem;
+  height: 5.875rem
+}
+
+:deep(.van-text-ellipsis) {
+  font-size: 13px;
+  color: #797d82;
+  margin-top: 2.5px;
+}
+
+.film-info {
+  flex: 1;
+  padding: 0 10px;
+  text-align: left;
+  height: 5.875rem;
+
+  .film-name {
+    font-size: 16px;
+    color: #191a1b;
+    line-height: 22px;
+  }
+
+
+  .film-grade {
+    display: flex;
+    margin-top: 2.5px;
+    align-items: center;
+
+    .grade-label {
+      font-size: 13px;
+      color: #797d82;
+    }
+
+    .grade {
+      color: #ffb232;
+      font-size: 14px;
+    }
+  }
+
+  .film-nation-runtime {
+    font-size: 13px;
+    margin-top: 2.5px;
+    color: #797d82;
+  }
+
+}
+
+.film-buy-tickets {
+  display: flex;
+  height: 5.875rem;
+  align-items: center;
+  justify-content: center;
+
+  .van-button {
+    border: 0;
+    height: 25px;
+    font-size: 12px;
+    padding: 0 8.5px;
+    border-radius: 12.5px;
+  }
+}
+</style>
