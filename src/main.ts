@@ -6,6 +6,7 @@ import { store, key } from './store'
 import components from '@/components/index'
 
 import 'vant/lib/index.css';
+import 'vant/es/toast/style';
 const app = createApp(App)
 
 

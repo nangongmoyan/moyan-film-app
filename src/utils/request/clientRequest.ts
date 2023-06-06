@@ -1,7 +1,7 @@
 
 import { store } from '@/store'
 import axios from 'axios'
-import { Toast } from 'vant'
+import { showLoadingToast, showFailToast, closeToast } from 'vant';
 
 export const clientRequest = axios.create({
   baseURL: 'https://m.maizuo.com',
@@ -28,17 +28,18 @@ clientRequest.interceptors.request.use((config)=>{
   }
 
   if (!unToast) {
-    // Toast.loading({
-    //   message: '玩命加载...',
-    //   forbidClick: true,
-    //   loadingType: 'spinner',
-    //   duration: 0
-    // })
+    showLoadingToast({
+      duration: 0,
+      forbidClick: true,
+      message: '玩命加载...',
+      loadingType: 'spinner',
+    })
   }
 
   return config
 }, error=>{
-  // Toast.fail('加载失败，请稍后重试')
+  closeToast()
+  showFailToast('加载失败，请稍后重试')
   return Promise.reject(error)
 })
 
@@ -46,11 +47,11 @@ clientRequest.interceptors.request.use((config)=>{
 /** 响应拦截器 */
 clientRequest.interceptors.response.use((response)=>{
   /** 状态码为 2xx 都会进入这里 */
-  // Toast.clear()
+  closeToast()
   return response.data
 }, error=>{
-  // setTimeout(() => Toast.clear(), 1000)
-  // Toast.fail('加载失败，请稍后重试')
+  setTimeout(() => closeToast(), 1000)
+  showFailToast('加载失败，请稍后重试')
   return Promise.reject(error)
 })
 

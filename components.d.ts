@@ -7,11 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BottomTabBar: typeof import('./src/components/BottomTabBar/index.vue')['default']
+    BottomTabBar: typeof import('./src/components/BottomTabBar/BottomTabBar.vue')['default']
     CityEntry: typeof import('./src/components/City/CityEntry.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    LocationSearchBar: typeof import('./src/components/LocationSearchBar/index.vue')['default']
-    NavigationBar: typeof import('./src/components/NavigationBar/index.vue')['default']
+    LocationSearchBar: typeof import('./src/components/LocationSearchBar/LocationSearchBar.vue')['default']
+    NavigationBar: typeof import('./src/components/NavigationBar/NavigationBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchIcon: typeof import('./src/components/Search/SearchIcon.vue')['default']
