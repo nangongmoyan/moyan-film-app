@@ -10,7 +10,7 @@
 import { filmApi } from '@/api/film'
 import FilmCell from './FilmCell.vue'
 import { useRoute } from 'vue-router'
-import type { FilmItem } from '@/types/film'
+import { FilmItem } from '@/types/film';
 import { onMounted, ref, reactive } from 'vue'
 
 const route = useRoute()

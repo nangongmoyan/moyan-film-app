@@ -16,9 +16,11 @@
     "vant": "^4.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2",
-    "vuex": "^4.1.0"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/node": "^20.2.5",
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^4.1.0",

@@ -1,3 +1,4 @@
 export const headers={
-  filmList :{ 'X-Host': 'mall.film-ticket.film.list' }
+  filmList : { 'X-Host': 'mall.film-ticket.film.list' },
+  cinemaList : { 'X-Host': 'mall.film-ticket.cinema.list' },
 }
