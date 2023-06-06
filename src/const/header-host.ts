@@ -5,5 +5,5 @@ export const headers={
   filmList : { 'X-Host': 'mall.film-ticket.film.list' },
   filmInfo : { 'X-Host': 'mall.film-ticket.film.info'  },
   cinemaList : { 'X-Host': 'mall.film-ticket.cinema.list' },
-
+  filmFloatBanner : { 'X-Host': 'mall.cfg.film-float.banner' },
 }

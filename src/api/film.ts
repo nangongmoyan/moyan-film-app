@@ -1,9 +1,20 @@
 import { headers } from "@/const"
 import { clientRequest } from "@/utils/request"
-import { FilmDetailResponse, FilmListResponse } from "./types/film"
+import { FilmBannerResponse, FilmDetailResponse, FilmListResponse } from "./types/film"
 
 /** 电影相关接口 */
 export const filmApi ={
+  filmBanner: function ():Promise<FilmBannerResponse> {
+    return clientRequest.get('/gateway', {
+      headers:headers.filmFloatBanner,
+      params: {
+        k: 8089533,
+        cityId: 440300
+      },
+   
+    })
+  },
+
   /**
    * 正在热映电影列表
    * @param param0 

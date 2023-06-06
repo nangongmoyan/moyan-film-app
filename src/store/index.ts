@@ -7,6 +7,7 @@ const state = {
   city: JSON.parse(window.localStorage.getItem('city') || 'null'),
   location: JSON.parse(window.localStorage.getItem('location') || 'null'),
   districts: JSON.parse(window.localStorage.getItem('districts') || 'null'),
+  filmBanner: JSON.parse(window.localStorage.getItem('filmBanner') || 'null'),
   currentCity: JSON.parse(window.localStorage.getItem('currentCity') || 'null')
 }
 
@@ -38,6 +39,10 @@ export const store = createStore<State>({
     setDistricts (state, payload) {
       state.districts = payload
       window.localStorage.setItem('districts', JSON.stringify(payload))
+    },
+    setFilmBanner (state, payload) {
+      state.filmBanner = payload
+      window.localStorage.setItem('filmBanner', JSON.stringify(payload))
     },
     // setCurrentCity (state, payload) {
     //   const currentCity = (state.city.origiCitys as SubCityItem[]).find(item => item.cityId === payload)
