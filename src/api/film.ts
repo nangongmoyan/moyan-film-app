@@ -1,6 +1,6 @@
 import { headers } from "@/const"
 import { clientRequest } from "@/utils/request"
-import { FilmListResponse } from "./types/film"
+import { FilmDetailResponse, FilmListResponse } from "./types/film"
 
 /** 电影相关接口 */
 export const filmApi ={
@@ -20,6 +20,18 @@ export const filmApi ={
         cityId: 440300,
         unToast: pageNum > 1
       }
+    })
+  },
+
+  /**
+   * 电影详情信息
+   * @param {string} filmId 要查询的电影id
+   * @returns 
+   */
+  filmInfo:function(filmId:string) :Promise<FilmDetailResponse>{
+    return clientRequest.get('/gateway',{
+      headers:headers.filmInfo,
+      params:{ filmId, k: 9800898 }
     })
   }
 }

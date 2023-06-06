@@ -1,5 +1,5 @@
 <template>
-  <van-cell>
+  <van-cell @click="toFilmDetail()">
     <van-image :src="props.film.poster" />
     <div class="film-info">
       <van-text-ellipsis :content="props.film.name" class="film-name" />
@@ -22,6 +22,8 @@
 import type { PropType } from 'vue'
 import type { FilmItem } from '@/types/film'
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const props = defineProps({
   film: {
     type: Object as PropType<FilmItem>,
@@ -39,7 +41,9 @@ const actors = computed(() => {
   return props.film.actors.map(actor => actor.name).join(' ')
 })
 
-
+const toFilmDetail = () => {
+  router.push({ name: 'FilmDetail', params: { filmId: props.film.filmId } })
+}
 const toBuyTickets = () => {
   console.log('toBuyTickets')
 }
@@ -58,7 +62,7 @@ const toBuyTickets = () => {
 :deep(.van-text-ellipsis) {
   font-size: 13px;
   color: #797d82;
-  margin-top: 2.5px;
+  margin-top: 1px;
 }
 
 .film-info {

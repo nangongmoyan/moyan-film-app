@@ -20,6 +20,11 @@ const routes :RouteRecordRaw[] = [
     ]
   },
   {
+    path: '/film/:filmId',
+    name: 'FilmDetail',
+    component: () => import(/* webpackChunkName: 'filmDetail' */ '@/views/film/detail/FilmDetail.vue')
+  },
+  {
     path: '/cinemas',
     meta: { showTab: true },
     component: () => import(/* webpackChunkName: 'cinemas' */ '@/views/cinema/bar/CinemaBar.vue'),

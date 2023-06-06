@@ -3,6 +3,7 @@ export const headers={
   smsCodeSend : { 'X-Host': 'mall.user.sms-code.send' },
   smsCodeLogin : { 'X-Host': 'mall.user.sms-code-login' },
   filmList : { 'X-Host': 'mall.film-ticket.film.list' },
+  filmInfo : { 'X-Host': 'mall.film-ticket.film.info'  },
   cinemaList : { 'X-Host': 'mall.film-ticket.cinema.list' },
 
 }
