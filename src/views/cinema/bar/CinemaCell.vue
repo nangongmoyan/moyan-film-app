@@ -61,7 +61,7 @@ const props = defineProps({
 
 .cinema-right {
   display: flex;
-  width: 4rem;
+  width: 3.75rem;
   margin-left: auto;
   align-items: flex-end;
   flex-direction: column;
