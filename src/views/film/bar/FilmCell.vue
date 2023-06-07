@@ -1,14 +1,17 @@
 <template>
   <van-cell @click="toFilmDetail()">
-    <van-image :src="props.film.poster" />
+    <van-image :src="film.poster" />
     <div class="film-info">
-      <van-text-ellipsis :content="props.film.name" class="film-name" />
+      <div class="film-info-name">
+        <van-text-ellipsis :content="film.name" class="film-name" />
+        <span class="film-type">{{ film.filmType.name }}</span>
+      </div>
       <div class="film-grade" v-if="film.grade">
         <span class="grade-label">观众评分：</span>
-        <span class="grade">{{ props.film.grade }}</span>
+        <span class="grade">{{ film.grade }}</span>
       </div>
       <van-text-ellipsis :content="`主演：${actors}`" />
-      <div class="film-nation-runtime">{{ props.film.nation }} | {{ props.film.runtime }}分钟</div>
+      <div class="film-nation-runtime">{{ film.nation }} | {{ film.runtime }}分钟</div>
     </div>
     <div class="film-buy-tickets">
       <van-button type="primary" @click.stop="toBuyTickets"
@@ -71,12 +74,28 @@ const toBuyTickets = () => {
   text-align: left;
   height: 5.875rem;
 
-  .film-name {
-    font-size: 16px;
-    color: #191a1b;
-    line-height: 22px;
-  }
+  .film-info-name {
+    display: flex;
+    align-items: center;
 
+    .film-name {
+      font-size: 16px;
+      color: #191a1b;
+      line-height: 22px;
+      max-width: calc(100vw - 12.5rem);
+    }
+
+    .film-type {
+      font-size: 9px;
+      color: #fff;
+      background-color: #d2d6dc;
+      height: 14px;
+      line-height: 14px;
+      padding: 0 2px;
+      border-radius: 2px;
+      margin-left: 3px;
+    }
+  }
 
   .film-grade {
     display: flex;
