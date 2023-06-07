@@ -9,7 +9,6 @@ export const cinemaApi = {
     return clientRequest.get('/gateway',{
       headers:headers.cinemaList,
       params: {
-        k: 5291942,
         type: ticketFlag,
         cityId: 440300
       },

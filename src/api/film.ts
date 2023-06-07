@@ -27,7 +27,6 @@ export const filmApi ={
         type,
         pageNum,
         pageSize,
-        k: 2530325,
         cityId: 440300,
         unToast: pageNum > 1
       }
@@ -42,7 +41,7 @@ export const filmApi ={
   filmInfo:function(filmId:string) :Promise<FilmDetailResponse>{
     return clientRequest.get('/gateway',{
       headers:headers.filmInfo,
-      params:{ filmId, k: 9800898 }
+      params:{ filmId }
     })
   }
 }

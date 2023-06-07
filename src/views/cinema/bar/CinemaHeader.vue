@@ -1,22 +1,25 @@
 <template>
-  <location-search-bar>
-    <span class="title">影院</span>
-  </location-search-bar>
-  <van-dropdown-menu active-color="#ee0a24">
-    <van-dropdown-item v-model="filter.districtId" :options="districts" @change="sendFilter" />
-    <van-dropdown-item v-model="filter.ticketFlag" :options="ticketFlags" @change="sendFilter" />
-    <van-dropdown-item v-model="filter.sort" :options="sorts" @change="sendFilter" />
-  </van-dropdown-menu>
+  <div class="cinema-header">
+    <location-search-bar>
+      <span class="title">影院</span>
+    </location-search-bar>
+    <van-dropdown-menu v-if="showDropDown" active-color="#ee0a24">
+      <van-dropdown-item v-model="filter.districtId" :options="districts" @change="sendFilter" />
+      <van-dropdown-item v-model="filter.ticketFlag" :options="ticketFlags" @change="sendFilter" />
+      <van-dropdown-item v-model="filter.sort" :options="sorts" @change="sendFilter" />
+    </van-dropdown-menu>
+  </div>
 </template>
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { TicketFlag, CinemaSort, CinemaEmitsType } from '@/types/cinema'
 import { DropdownItemOption } from 'vant/lib/dropdown-item';
-import { defaultFilter } from '../const';
 import { store } from '@/store';
-const filter = reactive(defaultFilter)
+import { CINEMA_FILTER } from '@/const/cinema';
+const filter = reactive(CINEMA_FILTER)
 const districts = computed(() => store.state.districts)
 
+const showDropDown = computed(() => districts.value?.length)
 const ticketFlags = ref<DropdownItemOption[]>([
   { text: 'APP订票', value: TicketFlag.APP },
   { text: '前台兑换', value: TicketFlag.FRONT }
@@ -36,6 +39,12 @@ const sendFilter = () => {
 }
 </script>
 <style lang="scss" scoped>
+.cinema-header {
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+
 .title {
   flex: 1;
   font-size: 16px;

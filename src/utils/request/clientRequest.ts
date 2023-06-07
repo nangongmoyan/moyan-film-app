@@ -2,6 +2,8 @@
 import { store } from '@/store'
 import axios from 'axios'
 import { showLoadingToast, showFailToast, closeToast } from 'vant';
+import { dataIsFailure } from '../store/dataIsFailure';
+import { generateKey } from './paramKey';
 
 export const clientRequest = axios.create({
   baseURL: 'https://m.maizuo.com',
@@ -14,9 +16,14 @@ export const clientRequest = axios.create({
 clientRequest.interceptors.request.use((config)=>{
   let unToast = false
   if (config.params) {
+    let paramKey = store.state.paramKey
     const { unToast: toastValue = false, ...restParams } = config.params
     unToast = toastValue
-    restParams && Object.assign(config, { params:restParams })
+    if (dataIsFailure('paramKey', (_, subTimestamp) => subTimestamp, 60 * 1000)) {
+      paramKey = generateKey()
+      
+    }
+    restParams && Object.assign(config, { params:{...restParams, k: paramKey} })
   }
 
   !config.headers?.['X-Host'] &&     Object.assign(config, { baseURL: '' })

@@ -5,12 +5,12 @@ const routes :RouteRecordRaw[] = [
   {
     path:'/films',
     meta:{showTab:true},
-    component:()=>import(/* webpackChunkName: 'films' */ '@/views/film/bar/FilmBar.vue'),
+    component:()=>import(/* webpackChunkName: 'FilmBar' */ '@/views/film/bar/FilmBar.vue'),
     children:[
       {
         path: '/films/filmList/:type',
         name: 'FilmList',
-        component: () => import(/* webpackChunkName: 'ComingSoon' */ '@/views/film/bar/FilmList.vue'),
+        component: () => import(/* webpackChunkName: 'FilmList' */ '@/views/film/bar/FilmList.vue'),
         meta: { showTab: true }
       },
       {
@@ -22,28 +22,33 @@ const routes :RouteRecordRaw[] = [
   {
     path: '/film/:filmId',
     name: 'FilmDetail',
-    component: () => import(/* webpackChunkName: 'filmDetail' */ '@/views/film/detail/FilmDetail.vue')
+    component: () => import(/* webpackChunkName: 'FilmDetail' */ '@/views/film/detail/FilmDetail.vue')
   },
   {
     path: '/cinemas',
     meta: { showTab: true },
-    component: () => import(/* webpackChunkName: 'cinemas' */ '@/views/cinema/bar/CinemaBar.vue'),
+    component: () => import(/* webpackChunkName: 'CinemaBar' */ '@/views/cinema/bar/CinemaBar.vue'),
   },
   {
     path: '/center',
     meta: { requiresAuth: true, showTab: true },
-    component: () => import(/* webpackChunkName: 'center' */ '@/views/center/bar/CenterBar.vue'),
+    component: () => import(/* webpackChunkName: 'CenterBar' */ '@/views/center/bar/CenterBar.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: 'center' */ '@/views/login/Login.vue')
+    component: () => import(/* webpackChunkName: 'Login' */ '@/views/login/Login.vue')
   },
   {
     path: '/setting',
     name: 'Setting',
     meta: { requiresAuth: true },
-    component: () => import(/* webpackChunkName: 'center' */ '@/views/setting/Setting.vue'),
+    component: () => import(/* webpackChunkName: 'Setting' */ '@/views/setting/Setting.vue'),
+  },
+  {
+    path: '/city',
+    name: 'City',
+    component: () => import(/* webpackChunkName: 'CityList' */ '@/views/city/list/CityList.vue'),
   },
   {
     path: '/',

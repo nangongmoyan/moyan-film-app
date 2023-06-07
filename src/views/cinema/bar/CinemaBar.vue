@@ -5,18 +5,18 @@
   </van-list>
 </template>
 <script setup lang="ts">
-import { defaultFilter } from '../const'
 import { cinemaApi } from '@/api/cinema'
 import CinemaCell from './CinemaCell.vue'
 import CinemaHeader from './CinemaHeader.vue'
 import { CinemaItem, CinemaFilter } from '@/types/cinema'
 import { onMounted, ref, reactive } from 'vue'
 import { convertCinemas, filterCinemas } from '@/utils/cinema'
+import { CINEMA_FILTER } from '@/const/cinema'
 const finished = ref(false)
 const listLoading = ref(false)
 const cinemas = ref<CinemaItem[]>([])
-let filter = reactive(defaultFilter)
-let preFilter = reactive(defaultFilter)
+let filter = reactive(CINEMA_FILTER)
+let preFilter = reactive(CINEMA_FILTER)
 const originCinemas = ref<CinemaItem[]>([])
 
 onMounted(() => {
