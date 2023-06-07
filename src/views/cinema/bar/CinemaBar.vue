@@ -1,23 +1,29 @@
 <template>
   <cinema-header @update:filter="updateFilter" />
-  <van-list v-model:loading="listLoading" :finished="finished" finished-text="没有更多了" :immediate-check="false">
-    <cinema-cell v-for="cinema in cinemas" :key="cinema.cinemaId" :cinema="cinema" />
-  </van-list>
+  <div class="cinema-content">
+    <ul>
+      <cinema-cell v-for="cinema in cinemas" :key="cinema.cinemaId" :cinema="cinema" />
+    </ul>
+  </div>
+  <!-- <van-list v-model:loading="listLoading" :finished="finished" finished-text="没有更多了" :immediate-check="false">
+    
+  </van-list> -->
 </template>
 <script setup lang="ts">
+import BetterScroll from 'better-scroll'
 import { cinemaApi } from '@/api/cinema'
 import CinemaCell from './CinemaCell.vue'
 import CinemaHeader from './CinemaHeader.vue'
-import { CinemaItem, CinemaFilter } from '@/types/cinema'
-import { onMounted, ref, reactive } from 'vue'
-import { convertCinemas, filterCinemas } from '@/utils/cinema'
 import { CINEMA_FILTER } from '@/const/cinema'
-const finished = ref(false)
-const listLoading = ref(false)
+import { onMounted, ref, reactive, nextTick } from 'vue'
+import { CinemaItem, CinemaFilter } from '@/types/cinema'
+import { convertCinemas, filterCinemas } from '@/utils/cinema'
+
 const cinemas = ref<CinemaItem[]>([])
 let filter = reactive(CINEMA_FILTER)
 let preFilter = reactive(CINEMA_FILTER)
 const originCinemas = ref<CinemaItem[]>([])
+
 
 onMounted(() => {
   loadCinemaList()
@@ -33,6 +39,11 @@ const loadCinemaList = async () => {
 
     preFilter = filter
 
+    await nextTick(() => {
+      new BetterScroll('.cinema-content', {
+        scrollbar: { fade: true }
+      })
+    })
   } catch (error) {
     console.log('CinemaBar-loadCinemaList' + error)
   }
@@ -46,4 +57,10 @@ const updateFilter = (value: CinemaFilter) => {
 
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.cinema-content {
+  overflow: hidden;
+  position: relative;
+  height: calc(100vh - 8.75rem);
+}
+</style>
