@@ -17,7 +17,7 @@ import FilmDetailSwiper from './FilmDetailSwiper.vue';
 import { SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
-const props = defineProps({
+defineProps({
   actors: {
     type: Array as PropType<Actor[]>,
     required: true
