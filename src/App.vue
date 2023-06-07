@@ -5,7 +5,7 @@
   <bottom-tab-bar />
   <van-dialog v-model:show="show" width="18.875rem" :showConfirmButton="false" style="background: transparent;">
     <template #default>
-      <img :src="banner?.imgUrl" class="dialog-img" />
+      <img :src="banner?.imgUrl" class="dialog-img" @click="toBannerDetail" />
     </template>
     <template #footer>
       <div class='dialog-footer'>
@@ -20,8 +20,11 @@ import { FilmBanner } from './types/film';
 import { onMounted } from 'vue';
 import { dataIsFailure } from '@/utils/store/dataIsFailure'
 import { convertFilmBanner } from '@/utils/dialog/convertFilmBanner'
+import { useRouter } from 'vue-router';
 const show = ref(false);
+const router = useRouter()
 let banner = ref<FilmBanner | null>(null)
+
 
 
 onMounted(() => {
@@ -35,6 +38,14 @@ const loadFilmBanner = () => {
     })
   }
 
+}
+
+const toBannerDetail = () => {
+  if (banner.value?.actionData) {
+    const businessId = JSON.parse(banner.value.actionData)?.businessId
+    businessId && router.push({ name: 'FilmDetail', params: { filmId: businessId } })
+    show.value = false
+  }
 }
 </script>
 <style lang="scss" scoped>
