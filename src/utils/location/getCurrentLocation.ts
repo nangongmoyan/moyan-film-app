@@ -20,7 +20,7 @@ export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCu
       }
 
       /** 获取经纬度 */
-      const { latitude, longitude } = position.coords
+      // const { latitude, longitude } = position.coords
 
 
           /** 根据经纬度逆地理编码获取定位城市数据 */
