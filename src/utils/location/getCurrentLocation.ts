@@ -1,7 +1,8 @@
 import { store } from "@/store";
 import { locationApi } from "@/api/location";
 import { GetCurrentLocationParams } from "@/types/location";
-import { showLoadingToast, showFailToast, closeToast, showConfirmDialog } from 'vant';
+import { showLoadingToast, showFailToast, closeToast, showConfirmDialog, closeDialog } from 'vant';
+import router from "@/router";
 
 export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCurrentLocationParams)=>{
 
@@ -40,6 +41,8 @@ export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCu
             beforeClose:(action)=>{
               if(action === 'confirm'){
                 store.commit('setCurrentCity', curCity.cityId)
+                closeDialog()
+                router.replace('./films')
               }
             },
           })

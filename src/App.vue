@@ -52,11 +52,9 @@ const loadCity = () => {
     })
   }
 
-  console.log({ currentCity0: currentCity.value })
 
   setTimeout(() => {
     if (currentCity.value?.cityId && dataIsFailure('filmBanner', (_, subTimestamp) => subTimestamp)) {
-      console.log({ currentCity })
       convertFilmBanner().then(rlt => {
         if (rlt) {
           banner.value = rlt
