@@ -17,5 +17,17 @@ export default defineConfig({
     alias:{// 这里就是需要配置resolve里的别名
       "@": path.join(__dirname, "./src"), // path记得引入
     }
+  },
+  server:{
+    proxy:{
+      '/amap': {
+        　　target: 'https://restapi.amap.com/v3/geocode/',
+        　　　　changeOrigin: true,
+        　　　　ws: true,
+              // cookiePathRewrite:{
+              //   '^/amap': ''
+              // }
+        },
+    }
   }
 })

@@ -26,7 +26,7 @@ clientRequest.interceptors.request.use((config)=>{
     restParams && Object.assign(config, { params:{...restParams, k: paramKey} })
   }
 
-  !config.headers?.['X-Host'] &&     Object.assign(config, { baseURL: '' })
+  !config.headers?.['X-Host'] && Object.assign(config, { baseURL: '' })
 
   const { user } = store.state
   

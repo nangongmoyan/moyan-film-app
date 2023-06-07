@@ -11,7 +11,7 @@
     "types": [
       "vite/client"
     ],
-    // "noImplicitAny": false,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "bundler",

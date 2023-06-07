@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
 import { convertCity } from '@/utils/city';
+import { getCurrentLocation } from '@/utils/location';
 import { dataIsFailure } from '@/utils/store';
 import { computed, ref } from 'vue';
 import { onMounted } from 'vue';
@@ -43,6 +44,7 @@ const city = computed(() => {
 })
 onMounted(() => {
   loadCityList()
+  getCurrentLocation({})
 })
 
 const loadCityList = () => {

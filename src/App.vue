@@ -21,6 +21,8 @@ import { onMounted } from 'vue';
 import { dataIsFailure } from '@/utils/store/dataIsFailure'
 import { convertFilmBanner } from '@/utils/dialog/convertFilmBanner'
 import { useRouter } from 'vue-router';
+import { convertCity } from './utils/city';
+import { getCurrentLocation } from './utils/location';
 const show = ref(false);
 const router = useRouter()
 let banner = ref<FilmBanner | null>(null)
@@ -28,9 +30,10 @@ let banner = ref<FilmBanner | null>(null)
 
 
 onMounted(() => {
-  loadFilmBanner()
+  init()
 })
-const loadFilmBanner = () => {
+
+const init = () => {
   if (dataIsFailure('filmBanner', (_, subTimestamp) => subTimestamp)) {
     convertFilmBanner().then(rlt => {
       rlt && (banner.value = rlt)
@@ -38,6 +41,18 @@ const loadFilmBanner = () => {
     })
   }
 
+
+  /** 1.前提：地址数据要有 */
+  /** 1.1 地址数据如果缓存有责不请求 */
+  /** 2.进行定位处理 */
+  /** 2.1在第一次打开的时候进行定位，定位成功缓存起来，缓存有数据则不请求，缓存没数据则请求 */
+  if (dataIsFailure('city', (value, subTimestamp) => {
+    return !value?.citys || (value?.citys?.length > 0 && subTimestamp)
+  })) {
+    convertCity().then(_ => {
+      // getCurrentLocation({})
+    })
+  }
 }
 
 const toBannerDetail = () => {
