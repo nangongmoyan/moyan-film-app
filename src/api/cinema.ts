@@ -2,6 +2,7 @@ import { headers } from "@/const";
 import { TicketFlag } from "@/types/cinema";
 import { clientRequest } from "@/utils/request";
 import { CinemaListResponse } from "./types/cinema";
+import { store } from "@/store";
 
 /**影院相关接口 */
 export const cinemaApi = {
@@ -10,7 +11,7 @@ export const cinemaApi = {
       headers:headers.cinemaList,
       params: {
         type: ticketFlag,
-        cityId: 440300
+        cityId: store.state.currentCity.cityId
       },
     })
   }

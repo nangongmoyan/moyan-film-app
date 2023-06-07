@@ -3,7 +3,7 @@
     <van-image :src="film.poster" />
     <div class="film-info">
       <div class="film-info-name">
-        <van-text-ellipsis :content="film.name" class="film-name" />
+        <span class="film-name">{{ film.name }}</span>
         <span class="film-type">{{ film.filmType.name }}</span>
       </div>
       <div class="film-grade" v-if="film.grade">
@@ -79,10 +79,14 @@ const toBuyTickets = () => {
     align-items: center;
 
     .film-name {
-      font-size: 16px;
-      color: #191a1b;
-      line-height: 22px;
       max-width: calc(100vw - 12.5rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #191a1b;
+      font-size: 16px;
+      height: 22px;
+      line-height: 22px;
     }
 
     .film-type {

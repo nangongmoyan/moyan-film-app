@@ -6,8 +6,8 @@
   </div>
   <div class="city-recommend">
     <div class="city-title">GPS定位你所在城市</div>
-    <van-row style="justify-content:flex-start ;">
-      <van-col>深圳</van-col>
+    <van-row style="justify-content:flex-start ;" @click="onSelect(location.cityId)">
+      <van-col v-if="location?.name">{{ location?.name }}</van-col>
     </van-row>
     <div class="city-title">热门城市</div>
     <van-row v-if="city?.hotCitys?.length > 0">
@@ -39,12 +39,11 @@ import { useRouter } from 'vue-router';
 const store = useStore()
 const router = useRouter()
 const searchValue = ref('')
-const city = computed(() => {
-  return store.state.city
-})
+const city = computed(() => store.state.city)
+const location = computed(() => store.state.location?.city)
 onMounted(() => {
+  getCurrentLocation({ showToast: true, needReGet: true })
   loadCityList()
-  getCurrentLocation({})
 })
 
 const loadCityList = () => {
@@ -67,6 +66,8 @@ const onSelect = (cityId: number) => {
   store.commit('setCurrentCity', cityId)
   router.replace('./films')
 }
+
+
 </script>
 <style lang="scss" scoped>
 .city-header {

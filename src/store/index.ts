@@ -34,10 +34,10 @@ export const store = createStore<State>({
       state.city = payload
       window.localStorage.setItem('city', JSON.stringify(payload))
     },
-    // setLocation (state, payload) {
-    //   state.location = payload
-    //   window.localStorage.setItem('location', JSON.stringify(payload))
-    // },
+    setLocation (state, payload) {
+      state.location = payload
+      window.localStorage.setItem('location', JSON.stringify(payload))
+    },
     setDistricts (state, payload) {
       state.districts = payload
       window.localStorage.setItem('districts', JSON.stringify(payload))

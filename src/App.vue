@@ -1,47 +1,45 @@
 
 
 <template>
-  <router-view />
-  <bottom-tab-bar />
-  <van-dialog v-model:show="show" width="18.875rem" :showConfirmButton="false" style="background: transparent;">
-    <template #default>
-      <img :src="banner?.imgUrl" class="dialog-img" @click="toBannerDetail" />
-    </template>
-    <template #footer>
-      <div class='dialog-footer'>
-        <van-icon name="close" size="30" color="#fff" @click="show = false" />
-      </div>
-    </template>
-  </van-dialog>
+  <div v-if="currentCity">
+    <router-view />
+    <bottom-tab-bar />
+    <van-dialog v-model:show="show" width="18.875rem" :showConfirmButton="false" style="background: transparent;">
+      <template #default>
+        <img :src="banner?.imgUrl" class="dialog-img" @click="toBannerDetail" />
+      </template>
+      <template #footer>
+        <div class='dialog-footer'>
+          <van-icon name="close" size="30" color="#fff" @click="show = false" />
+        </div>
+      </template>
+    </van-dialog>
+  </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { FilmBanner } from './types/film';
 import { onMounted } from 'vue';
 import { dataIsFailure } from '@/utils/store/dataIsFailure'
 import { convertFilmBanner } from '@/utils/dialog/convertFilmBanner'
 import { useRouter } from 'vue-router';
 import { convertCity } from './utils/city';
+import { getCurrentLocation } from './utils/location';
+import { store } from './store';
 // import { getCurrentLocation } from './utils/location';
 const show = ref(false);
 const router = useRouter()
 let banner = ref<FilmBanner | null>(null)
 
-
+const currentCity = computed(() => store.state.currentCity)
 
 onMounted(() => {
-  init()
+  loadCity()
+
 })
 
-const init = () => {
-  if (dataIsFailure('filmBanner', (_, subTimestamp) => subTimestamp)) {
-    convertFilmBanner().then(rlt => {
-      rlt && (banner.value = rlt)
-      show.value = true
-    })
-  }
 
-
+const loadCity = () => {
   /** 1.前提：地址数据要有 */
   /** 1.1 地址数据如果缓存有责不请求 */
   /** 2.进行定位处理 */
@@ -50,10 +48,28 @@ const init = () => {
     return !value?.citys || (value?.citys?.length > 0 && subTimestamp)
   })) {
     convertCity().then(_ => {
-      // getCurrentLocation({})
+      getCurrentLocation({})
     })
   }
+
+  console.log({ currentCity0: currentCity.value })
+
+  setTimeout(() => {
+    if (currentCity.value?.cityId && dataIsFailure('filmBanner', (_, subTimestamp) => subTimestamp)) {
+      console.log({ currentCity })
+      convertFilmBanner().then(rlt => {
+        if (rlt) {
+          banner.value = rlt
+          show.value = true
+        }
+      })
+    }
+  }, 2200)
+
+
 }
+
+
 
 const toBannerDetail = () => {
   if (banner.value?.actionData) {

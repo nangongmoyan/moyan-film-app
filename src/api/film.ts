@@ -1,3 +1,5 @@
+
+import { store } from "@/store"
 import { headers } from "@/const"
 import { clientRequest } from "@/utils/request"
 import { FilmBannerResponse, FilmDetailResponse, FilmListResponse } from "./types/film"
@@ -5,11 +7,12 @@ import { FilmBannerResponse, FilmDetailResponse, FilmListResponse } from "./type
 /** 电影相关接口 */
 export const filmApi ={
   filmBanner: function ():Promise<FilmBannerResponse> {
+    const cityId = store.state.currentCity.cityId
+    console.log({cityId})
     return clientRequest.get('/gateway', {
       headers:headers.filmFloatBanner,
       params: {
-        k: 8089533,
-        cityId: 440300
+        cityId: store.state.currentCity.cityId
       },
    
     })
@@ -27,8 +30,8 @@ export const filmApi ={
         type,
         pageNum,
         pageSize,
-        cityId: 440300,
-        unToast: pageNum > 1
+        unToast: pageNum > 1,
+        cityId: store.state.currentCity.cityId,
       }
     })
   },

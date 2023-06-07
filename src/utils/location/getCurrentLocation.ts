@@ -1,10 +1,11 @@
-import { locationApi } from "@/api/location";
 import { store } from "@/store";
+import { locationApi } from "@/api/location";
 import { GetCurrentLocationParams } from "@/types/location";
-import { showLoadingToast, showFailToast, closeToast } from 'vant';
+import { showLoadingToast, showFailToast, closeToast, showConfirmDialog } from 'vant';
+
 export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCurrentLocationParams)=>{
 
-  const { location } = store.state
+  const { city, location, currentCity } = store.state
 
 
   if(!location || needReGet){
@@ -20,15 +21,33 @@ export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCu
       }
 
       /** 获取经纬度 */
-      // const { latitude, longitude } = position.coords
+      const { longitude, latitude } = position.coords
+
+      /** 根据经纬度逆地理编码获取定位城市数据 */
+      locationApi.getAmpLocation(longitude, latitude).then(rlt => {
+        const cityName = rlt?.regeocode?.addressComponent?.city
+        const curCity = city.origiCitys.find(item=>cityName.includes(item.name))
+
+        /** 当前定位匹配地址中的数据 */
+        const location = {  latitude, longitude, city:curCity }
+
+        store.commit('setLocation', location)
 
 
-          /** 根据经纬度逆地理编码获取定位城市数据 */
-      locationApi.getAmpLocation(position.coords.latitude, position.coords.longitude).then(rlt => {
-        console.log({ rlt })
-        alert(JSON.stringify(rlt))
+        if(showToast){
+          currentCity.cityId!==curCity.cityId &&  showConfirmDialog({
+            message:`您当前的定位在：${curCity.name},是否切换到定位城市？`,
+            beforeClose:(action)=>{
+              if(action === 'confirm'){
+                store.commit('setCurrentCity', curCity.cityId)
+              }
+            },
+          })
+        }else{
+          store.commit('setCurrentCity', curCity.cityId)
+        }
       })
-
+      setTimeout(() => closeToast(), 1000)
     },_=>{
       const { city } = store.state
       store.commit('setCurrentCity', city?.hotCitys[0].cityId)

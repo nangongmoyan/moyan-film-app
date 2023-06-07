@@ -1,13 +1,17 @@
 <template>
   <div class="city-entry" @click="goToCity">
     <van-icon name="location" size="10" color="#F03D37" />
-    <span class="city-name">深圳</span>
+    <span class="city-name">{{ currentCityName }}</span>
   </div>
 </template>
 <script  lang="ts" setup>
+import { store } from '@/store';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
+
+const currentCityName = computed(() => store.state.currentCity?.name)
 const goToCity = () => {
   router.push('/city')
 }
