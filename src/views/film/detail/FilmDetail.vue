@@ -1,15 +1,22 @@
 <template>
-  <div v-if="film">
+  <div v-if="film" class="film-main">
+    <film-detail-header :title="film.name" />
     <img :src="film.poster" class="poster" />
     <film-information :film="film" />
+    <film-actor :actors="film.actors" />
+    <film-photo :photos="film.photos" />
+    <van-button type="primary" block color="#F03D37" class="toBuyTicket">选票购座</van-button>
   </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { filmApi } from '@/api/film';
-import { FilmItem } from '@/types/film';
 import { useRoute } from 'vue-router';
+import { FilmItem } from '@/types/film';
+import FilmActor from './FilmActor.vue';
+import FilmPhoto from './FilmPhoto.vue';
 import FilmInformation from './FilmInformation.vue'
+import FilmDetailHeader from './FilmDetailHeader.vue'
 const route = useRoute()
 const film = ref<FilmItem | null>(null)
 const filmId = ref(route.params.filmId as string)
@@ -29,7 +36,26 @@ const loadFilmDetail = async () => {
 }
 </script>
 <style lang="scss" scoped>
-.poster {
-  width: 100%;
+.film-main {
+  background: #f4f4f4;
+
+  padding-bottom: 3.0625rem;
+
+  .poster {
+    width: 100%;
+  }
+
+  .toBuyTicket {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 16px;
+    position: fixed;
+    border-radius: 0;
+    height: 3.0625rem;
+    line-height: 49px;
+    z-index: 100;
+
+  }
 }
 </style>
