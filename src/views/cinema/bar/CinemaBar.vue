@@ -40,9 +40,7 @@ const loadCinemaList = async () => {
     preFilter = filter
 
     await nextTick(() => {
-      new BetterScroll('.cinema-content', {
-        scrollbar: { fade: true }
-      })
+      new BetterScroll('.cinema-content')
     })
   } catch (error) {
     console.log('CinemaBar-loadCinemaList' + error)
