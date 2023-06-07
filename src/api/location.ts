@@ -1,4 +1,4 @@
-import { clientRequest } from "@/utils/request"
+// import { clientRequest } from "@/utils/request"
 
 /** 定位相关接口 */
 export const locationApi = {

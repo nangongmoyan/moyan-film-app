@@ -22,7 +22,7 @@ import { dataIsFailure } from '@/utils/store/dataIsFailure'
 import { convertFilmBanner } from '@/utils/dialog/convertFilmBanner'
 import { useRouter } from 'vue-router';
 import { convertCity } from './utils/city';
-import { getCurrentLocation } from './utils/location';
+// import { getCurrentLocation } from './utils/location';
 const show = ref(false);
 const router = useRouter()
 let banner = ref<FilmBanner | null>(null)
