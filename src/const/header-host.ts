@@ -17,5 +17,7 @@ export const headers={
   /** user */
   userInfoGet : { 'X-Host': 'mall.user.info.get'},
 
-
+  /** order */
+  orderList : { 'X-Host': 'mall.order.user-orders'},
+  orderDetail : { 'X-Host': 'mall.order.detail.v2'},
 }

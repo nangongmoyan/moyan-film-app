@@ -51,6 +51,17 @@ const routes :RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: 'CityList' */ '@/views/city/list/CityList.vue'),
   },
   {
+    path: '/order',
+    name: 'Order',
+    meta: { requiresAuth: true },
+    component: () => import(/* webpackChunkName: 'OrderList' */ '@/views/order/list/OrderList.vue'),
+  },
+  {
+    path: '/order/detail/:orderId',
+    name: 'OrderDetail',
+    component: () => import(/* webpackChunkName: 'OrderDetail' */ '@/views/order/detail/OrderDetail.vue'),
+  },
+  {
     path: '/',
     redirect: '/films'
   }

@@ -1,10 +1,10 @@
 <template>
-  <div class="center-header" v-if="userInfo">
-    <img class='avatar' :src="userInfo.headIcon" alt="avatar">
-    <span class="nick-name">{{ userInfo.nickName }}</span>
+  <div class="center-header">
+    <img v-if="userInfo" class='avatar' :src="userInfo.headIcon" alt="avatar">
+    <span v-if="userInfo" class="nick-name">{{ userInfo.nickName }}</span>
   </div>
   <van-cell title="余额" icon="balance-o" is-link />
-  <van-cell title="订单" icon="orders-o" is-link />
+  <van-cell title="订单" icon="orders-o" is-link to="/order" />
   <van-cell title="优惠券" icon="coupon-o" is-link />
   <van-cell title="帮助与客服" icon="service-o" is-link />
   <van-cell title="设置" icon="setting-o" is-link to="/setting" />

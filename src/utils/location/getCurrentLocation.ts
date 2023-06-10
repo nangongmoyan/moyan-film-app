@@ -43,6 +43,8 @@ export const getCurrentLocation = ({showToast = false, needReGet = false }:GetCu
                 store.commit('setCurrentCity', curCity.cityId)
                 closeDialog()
                 router.replace('./films')
+              }else {
+                closeDialog()
               }
             },
           })

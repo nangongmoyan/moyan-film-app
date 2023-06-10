@@ -1,6 +1,6 @@
 <template>
   <div class="city-header">
-    <navigation-bar title="当前城市-" />
+    <navigation-bar :title="currentCity" />
     <van-search show-action v-model="searchValue" placeholder="请输入搜索关键词" @update:model-value="onSearch"
       @cancel="onCancel" />
   </div>
@@ -40,6 +40,9 @@ const store = useStore()
 const router = useRouter()
 const searchValue = ref('')
 const city = computed(() => store.state.city)
+const currentCity = computed(() => {
+  return '当前城市-' + store.state.currentCity?.name ?? ''
+})
 const location = computed(() => store.state.location?.city)
 onMounted(() => {
   getCurrentLocation({ showToast: true, needReGet: true })

@@ -7,8 +7,6 @@ import { FilmBannerResponse, FilmDetailResponse, FilmListResponse } from "./type
 /** 电影相关接口 */
 export const filmApi ={
   filmBanner: function ():Promise<FilmBannerResponse> {
-    const cityId = store.state.currentCity.cityId
-    console.log({cityId})
     return clientRequest.get('/gateway', {
       headers:headers.filmFloatBanner,
       params: {
