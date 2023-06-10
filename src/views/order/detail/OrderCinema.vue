@@ -11,7 +11,7 @@
 import { CinemaInfo } from '@/types/order';
 import { PropType } from 'vue';
 
-const props = defineProps({
+defineProps({
   cinema: {
     type: Object as PropType<CinemaInfo>,
     required: true
